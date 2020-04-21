@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Projects
+.idea/
+
+# Builds
+*build*/
