@@ -4,7 +4,7 @@ project(Advanced_Optimization_Methods)
 set(CMAKE_CXX_STANDARD 17)
 
 add_compile_options(
-    -Werror
+#    -Werror
     -Wall
     -Wextra
     -Wshadow # Warn if variable overshadows parent context
