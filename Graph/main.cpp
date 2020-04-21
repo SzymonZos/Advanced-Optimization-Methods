@@ -12,6 +12,9 @@ int main() {
                                    0,
                                    3);
     auto [distance, route] = dijkstra.GetResult();
-    std::cout << distance;
+    std::cout << distance << std::endl;
+    for (auto node : route) {
+        std::cout << node << std::endl;
+    }
     return 0;
 }

@@ -2,6 +2,7 @@
 #define ADVANCED_OPTIMIZATION_METHODS_DIJKSTRA_HPP
 
 #include <algorithm>
+#include <forward_list>
 #include <limits>
 #include <set>
 #include <tuple>
@@ -19,7 +20,8 @@ public:
         graph_{graph},
         source_{source},
         destination_{destination},
-        minDists_{graph_.size(), std::numeric_limits<T>::max()} {
+        minDists_(graph_.size(), std::numeric_limits<T>::max()),
+        previousVertices_(graph_.size()) {
         Init();
         Run();
     }
@@ -33,7 +35,7 @@ public:
     Dijkstra(Dijkstra&& other) noexcept = default;
     Dijkstra& operator=(Dijkstra&& other) noexcept = default;
 
-    std::tuple<T, std::vector<std::size_t>> GetResult() {
+    std::tuple<T, std::forward_list<std::size_t>> GetResult() {
         return {desiredDistance_, route_};
     }
 
@@ -42,6 +44,7 @@ public:
             auto [minimalDistance, currentVertex] = *activeVertices_.begin();
             if (currentVertex == destination_) {
                 desiredDistance_ = minimalDistance;
+                FindRoute();
                 return;
             }
             activeVertices_.erase(activeVertices_.begin());
@@ -58,8 +61,9 @@ private:
 
     std::vector<T> minDists_{};
     std::set<std::pair<T, std::size_t>> activeVertices_{};
+    std::vector<std::size_t> previousVertices_;
 
-    std::vector<std::size_t> route_{};
+    std::forward_list<std::size_t> route_{};
     T desiredDistance_{};
 
     void Init() {
@@ -73,9 +77,18 @@ private:
             if (dists[i] && minDists_[i] > minDists_[vertex] + dists[i]) {
                 activeVertices_.erase({minDists_[i], i});
                 minDists_[i] = minDists_[vertex] + dists[i];
+                previousVertices_[i] = vertex;
                 activeVertices_.insert({minDists_[i], i});
             }
         }
+    }
+
+    void FindRoute() {
+        for (std::size_t vertex = destination_; vertex;
+             vertex = previousVertices_[vertex]) {
+            route_.push_front(vertex);
+        }
+        route_.push_front(source_);
     }
 };
 
