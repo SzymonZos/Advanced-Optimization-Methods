@@ -18,8 +18,8 @@ public:
         graph_{graph},
         source_{source},
         destination_{destination},
-        minDists_(graph_.size(), std::numeric_limits<T>::max()),
-        previousVertices_(graph_.size()) {
+        minDists_(graph_.size(), inf_),
+        previousVertices_(graph_.size(), inf_) {
         Init();
         Run();
     }
@@ -48,11 +48,13 @@ public:
             activeVertices_.erase(activeVertices_.begin());
             EvaluateCurrentVertex(currentVertex);
         }
-        desiredDistance_ = std::numeric_limits<std::size_t>::max();
+        desiredDistance_ = inf_;
         route_ = {};
     }
 
 private:
+    static const constexpr T inf_{std::numeric_limits<T>::max()};
+
     Matrix<T> graph_;
     std::size_t source_;
     std::size_t destination_;
@@ -82,11 +84,10 @@ private:
     }
 
     void FindRoute() {
-        for (std::size_t vertex = destination_; vertex;
+        for (std::size_t vertex = destination_; vertex != inf_;
              vertex = previousVertices_[vertex]) {
             route_.push_front(vertex);
         }
-        route_.push_front(source_);
     }
 };
 } // namespace AOM
