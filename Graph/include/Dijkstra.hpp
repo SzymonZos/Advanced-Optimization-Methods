@@ -1,16 +1,14 @@
 #ifndef ADVANCED_OPTIMIZATION_METHODS_DIJKSTRA_HPP
 #define ADVANCED_OPTIMIZATION_METHODS_DIJKSTRA_HPP
 
+#include "Types.hpp"
 #include <algorithm>
 #include <forward_list>
 #include <limits>
 #include <set>
 #include <tuple>
-#include <vector>
 
-template<typename T>
-using Matrix = std::vector<std::vector<T>>;
-
+namespace AOM {
 template<typename T>
 class Dijkstra {
 public:
@@ -91,5 +89,6 @@ private:
         route_.push_front(source_);
     }
 };
+} // namespace AOM
 
 #endif // ADVANCED_OPTIMIZATION_METHODS_DIJKSTRA_HPP

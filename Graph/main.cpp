@@ -1,20 +1,16 @@
 #include "Dijkstra.hpp"
+#include "Model.hpp"
 #include <iostream>
 
 int main() {
-    Dijkstra<std::size_t> dijkstra({{0, 5, 3, 0, 0, 0, 0},
-                                    {0, 0, 2, 0, 3, 0, 1},
-                                    {0, 0, 0, 7, 7, 0, 0},
-                                    {2, 0, 0, 0, 0, 6, 0},
-                                    {0, 0, 0, 2, 0, 1, 0},
-                                    {0, 0, 0, 0, 0, 0, 0},
-                                    {0, 0, 0, 0, 1, 0, 0}},
-                                   0,
-                                   3);
+    AOM::Model<std::size_t> rawModel{0};
+    auto model = rawModel.GetModel();
+    AOM::Dijkstra<std::size_t> dijkstra{model, 0, 14};
     auto [distance, route] = dijkstra.GetResult();
     std::cout << distance << std::endl;
     for (auto node : route) {
         std::cout << node << std::endl;
     }
+
     return 0;
 }

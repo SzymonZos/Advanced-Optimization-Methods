@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.17)
 project(Advanced_Optimization_Methods)
 
 set(CMAKE_CXX_STANDARD 17)
+set(FMT_DIR ${PROJECT_SOURCE_DIR}/external/fmt)
 
 add_compile_options(
 #    -Werror
@@ -20,4 +21,5 @@ add_compile_options(
     -fconstexpr-depth=1024
 )
 
+add_subdirectory(${FMT_DIR})
 add_subdirectory(Graph)
