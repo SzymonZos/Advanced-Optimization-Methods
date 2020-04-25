@@ -1,4 +1,5 @@
 #include "Dijkstra.hpp"
+#include "GenericOstreamOperators.hpp"
 #include "Model.hpp"
 #include <iostream>
 
@@ -7,10 +8,6 @@ int main() {
     auto model = rawModel.GetModel();
     AOM::Dijkstra<std::size_t> dijkstra{model, 14, 0};
     auto [distance, route] = dijkstra.GetResult();
-    std::cout << distance << std::endl;
-    for (auto node : route) {
-        std::cout << node << std::endl;
-    }
-
+    std::cout << "route: " << route << ", distance: " << distance << std::endl;
     return 0;
 }

@@ -3,7 +3,6 @@
 
 #include "Types.hpp"
 #include "fmt/format.h"
-#include <charconv>
 #include <fstream>
 #include <regex>
 #include <sstream>
@@ -50,7 +49,7 @@ private:
 
     void ReadFromFile() {
         for (std::string line; std::getline(file_, line);) {
-            if (std::regex_search(line, std::regex("[0-9\\.]"))) {
+            if (std::regex_search(line, std::regex("[0-9]"))) {
                 model_.emplace_back();
                 ReadSingleRow(line);
             }
@@ -62,9 +61,7 @@ private:
         for (std::string element; std::getline(stream, element, ',');) {
             if (std::regex_match(element, std::regex("^[0-9\\.\r\n]+$"))) {
                 T value{};
-                std::from_chars(element.c_str(),
-                                element.c_str() + element.size(),
-                                value);
+                std::istringstream{element} >> value;
                 model_.back().push_back(value);
             }
         }
