@@ -38,3 +38,4 @@ include_directories(SYSTEM
 
 add_subdirectory(${FMT_DIR})
 add_subdirectory(Graph)
+add_subdirectory(GeneticAlgorithms)
