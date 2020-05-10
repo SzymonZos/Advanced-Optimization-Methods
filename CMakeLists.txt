@@ -4,6 +4,8 @@ project(Advanced_Optimization_Methods)
 set(CMAKE_CXX_STANDARD 20)
 set(FMT_DIR ${PROJECT_SOURCE_DIR}/external/fmt)
 set(OPERATORS_DIR ${PROJECT_SOURCE_DIR}/external/Generic-Ostream-Operators)
+set(TIMER_DIR external/Timer)
+set(SPDLOG_DIR external/spdlog)
 
 add_compile_options(
 #    -Werror
@@ -34,8 +36,11 @@ endif()
 
 include_directories(SYSTEM
     ${OPERATORS_DIR}
+    ${TIMER_DIR}
 )
 
-add_subdirectory(${FMT_DIR})
+add_subdirectory(${SPDLOG_DIR} ${CMAKE_CURRENT_BINARY_DIR}/${SPDLOG_DIR})
+add_subdirectory(${FMT_DIR} ${CMAKE_CURRENT_BINARY_DIR}/${FMT_DIR})
+
 add_subdirectory(Graph)
 add_subdirectory(GeneticAlgorithms)

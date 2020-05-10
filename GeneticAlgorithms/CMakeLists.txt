@@ -14,4 +14,9 @@ set_target_properties(GeneticAlgorithms
 
 target_include_directories(GeneticAlgorithms PRIVATE
     include
+    ${SPDLOG_DIR}/include
+)
+
+target_link_libraries(GeneticAlgorithms PRIVATE
+    spdlog::spdlog
 )

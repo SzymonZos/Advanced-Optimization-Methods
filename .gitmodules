@@ -4,3 +4,12 @@
 [submodule "external/Generic-Ostream-Operators"]
 	path = external/Generic-Ostream-Operators
 	url = https://github.com/SzymonZos/Generic-Ostream-Operators.git
+[submodule "Timer"]
+	path = Timer
+	url = https://github.com/SzymonZos/Timer.git
+[submodule "external/Timer"]
+	path = external/Timer
+	url = https://github.com/SzymonZos/Timer.git
+[submodule "external/spdlog"]
+	path = external/spdlog
+	url = https://github.com/gabime/spdlog.git
