@@ -1,6 +1,4 @@
 clear all
-close all
-clc
 
 %% Init
 K = 15;
@@ -20,8 +18,9 @@ x(:, 1) = 0.6;
 p = zeros(1, N + 1);
 b = zeros(1, N);
 J = zeros(K, 1);
-t = 0.1;
+t = 0.01;
 
+%% Algorithm
 for iter = 1 : K
     for i = 2 : size(x, 2)
         x(iter, i) = A * x(iter, i - 1) ^ 2 + B * u(iter, i - 1);
@@ -30,15 +29,21 @@ for iter = 1 : K
     for i = N : -1 : 1
         p(i) = 2 * x(iter,i) * (Q + p(i + 1) * A);
     end
+    b_old = b;
     for i = 1 : length(b)
         b(i) = 2 * H * u(iter, i) + B * p(i + 1);
     end
-    if norm(b) < eps
+    if iter == 1
+        d = -b;
+    else
+        d = -b + norm(b) ^ 2 / norm(b_old) ^ 2 * d;
+    end
+    J(iter) = sum(Q * x(iter, 1 : end - 1) .^ 2 + H * u(iter, :) .^ 2) + ...
+              F / 2 * x(end) ^ 4;
+    if norm(d) < eps
         break;
     end
-    J(iter) = sum(G * x(1 : end - 1) .^ 2 + H * u .^ 2) + ...
-       F * x(end) ^ 4;
-    u(iter + 1, :) = u(iter, :) - t * b;
+    u(iter + 1, :) = u(iter, :) + t * d;
 end
 
 %% Plot
@@ -48,4 +53,8 @@ for i = 2 : N + 1
     plot(x(1 : iter, i), colors(i - 1));
     hold on;
 end
-title('Trajectories, direct gradient');
+title('Trajectories, conjugated gradient');
+
+figure;
+plot(J(1 : iter));
+title('Performance index, conjugated gradient');
