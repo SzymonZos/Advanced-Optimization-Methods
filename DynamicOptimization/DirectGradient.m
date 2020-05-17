@@ -1,7 +1,7 @@
 clear all
 
 %% Init
-K = 15;
+K = 30;
 N = 7;
 eps = 0.25;
 
@@ -18,7 +18,7 @@ x(:, 1) = 0.6;
 p = zeros(1, N + 1);
 b = zeros(1, N);
 J = zeros(K, 1);
-t = 0.1;
+t = 0.01;
 
 %% Algorithm
 for iter = 1 : K
@@ -43,12 +43,14 @@ end
 %% Plot
 colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k'];
 figure;
+subplot(1, 2, 1);
 for i = 2 : N + 1
     plot(x(1 : iter, i), colors(i - 1));
     hold on;
 end
 title('Trajectories, direct gradient');
+hold off;
 
-figure;
+subplot(1, 2, 2);
 plot(J(1 : iter));
 title('Performance index, direct gradient');

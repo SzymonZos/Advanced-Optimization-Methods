@@ -1,7 +1,7 @@
 clear all
 
 %% Init
-K = 15;
+K = 30;
 N = 7;
 eps = 0.25;
 
@@ -49,12 +49,14 @@ end
 %% Plot
 colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k'];
 figure;
+subplot(1, 2, 1);
 for i = 2 : N + 1
     plot(x(1 : iter, i), colors(i - 1));
     hold on;
 end
 title('Trajectories, conjugated gradient');
+hold off;
 
-figure;
+subplot(1, 2, 2);
 plot(J(1 : iter));
 title('Performance index, conjugated gradient');
